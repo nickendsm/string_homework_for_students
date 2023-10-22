@@ -46,6 +46,13 @@ def get_wrong_article() -> str:
 
 def recover_article() -> str:
     wrong_article = get_wrong_article()
-
-    # Ваш код ниже, возвращайте уже отредактированный текст!
-    return wrong_article
+    # сначала делим на предложения, убираем восклицательные знаки
+    correct_article = wrong_article.split('.\n')
+    correct_article = [sentence[:sentence.find("!")] for sentence in correct_article]
+    # потом переворачиваем и переводим в нижний регистр
+    correct_article = [(sentence[::-1]).lower() for sentence in correct_article]
+    # заменяем слова
+    correct_article = [sentence.replace("woof-woof", "cat") for sentence in correct_article]
+    # заглавные буквы
+    correct_article = [sentence[0].upper()+sentence[1:] if sentence else "" for sentence in correct_article]
+    return ".\n".join(correct_article)
